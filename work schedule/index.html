@@ -523,6 +523,19 @@
             transform: translateY(-2px);
             box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
         }
+        .btn-text-export {
+            background: #fff;
+            color: #1e293b;
+            border: 2px solid #cbd5e1;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 12px 20px;
+            border-radius: 12px;
+        }
+        .btn-text-export:hover {
+            background: #f1f5f9;
+            border-color: #94a3b8;
+        }
         .btn-reset {
             background: #fff;
             color: #64748b;
@@ -588,7 +601,7 @@
             .app-header { flex-direction: column; align-items: flex-start; }
             .app-header h1 { font-size: 1.2rem; }
             .export-bar { justify-content: stretch; }
-            .btn-export, .btn-reset { flex: 1; justify-content: center; }
+            .btn-export, .btn-text-export, .btn-reset { flex: 1; justify-content: center; }
         }
     </style>
 </head>
@@ -689,13 +702,16 @@
                     </div>
                 </div>
 
-                <!-- Export Bar -->
+                <!-- Export Bar (with Text export added) -->
                 <div class="export-bar">
                     <button class="btn-reset" id="clearScheduleBtn" title="مسح جميع الجداول">
                         🔄 مسح الجدول بالكامل
                     </button>
+                    <button class="btn btn-text-export" id="exportTextBtn" title="تصدير الجدول كملف نصي">
+                        📝 تصدير كنص
+                    </button>
                     <button class="btn btn-export" id="exportPdfBtn" title="تصدير الجدول إلى PDF">
-                        📄 تصدير إلى PDF
+                        📄 تصدير PDF
                     </button>
                 </div>
             </section>
@@ -720,6 +736,7 @@
             const scheduleDateInput = document.getElementById('scheduleDate');
             const clearScheduleBtn = document.getElementById('clearScheduleBtn');
             const exportPdfBtn = document.getElementById('exportPdfBtn');
+            const exportTextBtn = document.getElementById('exportTextBtn');
             const clearAllEmployeesBtn = document.getElementById('clearAllEmployeesBtn');
             const toastContainer = document.getElementById('toastContainer');
 
@@ -749,33 +766,33 @@
             // DEFAULT EMPLOYEES (corrected list)
             // ─────────────────────────────────────
             const DEFAULT_EMPLOYEES = [
-                "عبدالقادر بوزكرت",               // 1
-                "عبدالفتاح محمد عمر",             // 2
-                "أسان بوشناكوف",                  // 3
-                "جبريل محمد شبانة",               // 4
-                "عبدالله عبدالعزيز صلاح الدين",   // 5
-                "نورين عثمان محمد",               // 6
-                "أنيس الرحمن راعين",              // 7
-                "جاسم فادنغاو مطالب",             // 8
-                "مهدي عكروت",                     // 9
-                "سلطان سعيد أفرانو",              // 10
-                "عبد العزيز فردوس بن مبارك",      // 11
-                "يونس خطابي",                     // 12
-                "عفان ماهاما",                    // 13
-                "محمد مصطفى ادن",                 // 14
-                "أعميروش صايب",                   // 15
-                "محمد رازق محمد فواز",            // 16
-                "لطفي الحاكم بن محمد عزاني",      // 17
-                "محمد جان زائروف",                // 18
-                "حبيب الله محمد موسى كليم",       // 19 (kept as original)
-                "المهدي مراني علوي",              // 20 (corrected)
-                "هنريكاي مانوال بربوسا",          // 21
-                "شاه جهان أحمد شاه",              // 22
-                "نرمين صالحوفيتش",               // 23
-                "أحمد جمال عثمان",                // 24
-                "دريتون بريشه",                  // 25
-                "كنتا ييما",                      // 26
-                "أمارة كونيه"                     // 27
+                "عبدالقادر بوزكرت",
+                "عبدالفتاح محمد عمر",
+                "أسان بوشناكوف",
+                "جبريل محمد شبانة",
+                "عبدالله عبدالعزيز صلاح الدين",
+                "نورين عثمان محمد",
+                "أنيس الرحمن راعين",
+                "جاسم فادنغاو مطالب",
+                "مهدي عكروت",
+                "سلطان سعيد أفرانو",
+                "عبد العزيز فردوس بن مبارك",
+                "يونس خطابي",
+                "عفان ماهاما",
+                "محمد مصطفى ادن",
+                "أعميروش صايب",
+                "محمد رازق محمد فواز",
+                "لطفي الحاكم بن محمد عزاني",
+                "محمد جان زائروف",
+                "حبيب الله محمد موسى كليم",
+                "المهدي مراني علوي",      // corrected entry
+                "هنريكاي مانوال بربوسا",
+                "شاه جهان أحمد شاه",
+                "نرمين صالحوفيتش",
+                "أحمد جمال عثمان",
+                "دريتون بريشه",
+                "كنتا ييما",
+                "أمارة كونيه"
             ];
 
             // ─────────────────────────────────────
@@ -1133,21 +1150,28 @@
             }
 
             // ─────────────────────────────────────
-            // PDF EXPORT – USES A TEMPORARY VISIBLE CONTAINER
+            // PDF EXPORT – FIXED & VISIBLE CONTAINER
             // ─────────────────────────────────────
             function exportToPdf() {
+                // Create a temporary container that is visible (important for html2canvas)
                 const container = document.createElement('div');
                 container.style.position = 'fixed';
-                container.style.top = '-9999px';
+                container.style.top = '0';
                 container.style.left = '0';
-                container.style.width = '900px';
+                container.style.width = '100%';
+                container.style.maxWidth = '900px';
+                container.style.margin = '20px auto';
                 container.style.padding = '20px';
                 container.style.background = '#ffffff';
                 container.style.fontFamily = "'Segoe UI', 'Tahoma', 'Arial', sans-serif";
                 container.style.direction = 'rtl';
                 container.style.color = '#1e293b';
+                container.style.zIndex = '999999';
+                container.style.boxShadow = '0 0 20px rgba(0,0,0,0.5)';
+                container.style.borderRadius = '8px';
                 container.id = 'temp-pdf-container';
 
+                // Title
                 const title = document.createElement('div');
                 title.style.textAlign = 'center';
                 title.style.fontSize = '1.6rem';
@@ -1156,6 +1180,7 @@
                 title.textContent = '📋 جدول مواعيد العمل';
                 container.appendChild(title);
 
+                // Date
                 const dateDiv = document.createElement('div');
                 dateDiv.style.textAlign = 'center';
                 dateDiv.style.fontSize = '1rem';
@@ -1173,6 +1198,7 @@
                 }
                 container.appendChild(dateDiv);
 
+                // Grid with three shifts
                 const grid = document.createElement('div');
                 grid.style.display = 'flex';
                 grid.style.gap = '12px';
@@ -1240,6 +1266,9 @@
                         useCORS: true,
                         letterRendering: true,
                         backgroundColor: '#ffffff',
+                        // Ensure the temporary element is fully captured
+                        windowWidth: container.scrollWidth,
+                        windowHeight: container.scrollHeight
                     },
                     jsPDF: {
                         unit: 'mm',
@@ -1255,6 +1284,59 @@
                     showToast('❌ فشل التصدير. حاول مرة أخرى.', 'error');
                     if (container.parentNode) container.remove();
                 });
+            }
+
+            // ─────────────────────────────────────
+            // TEXT EXPORT
+            // ─────────────────────────────────────
+            function exportToText() {
+                const dateVal = scheduleDateInput.value;
+                let dateStr = '';
+                if (dateVal) {
+                    const d = new Date(dateVal + 'T00:00:00');
+                    const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+                    dateStr = d.toLocaleDateString('ar-SA', options);
+                } else {
+                    dateStr = new Date().toLocaleDateString('ar-SA', {
+                        year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'
+                    });
+                }
+
+                let text = '📋 جدول مواعيد العمل\n';
+                text += 'التاريخ: ' + dateStr + '\n';
+                text += '----------------------------------------\n\n';
+
+                const shiftTitles = {
+                    1: '🌅 من الفجر إلى الظهر',
+                    2: '☀️ من الظهر إلى العشاء',
+                    3: '🌙 من العشاء إلى الفجر'
+                };
+
+                for (const s of [1, 2, 3]) {
+                    text += shiftTitles[s] + ':\n';
+                    const empIds = shifts[s];
+                    if (empIds.length === 0) {
+                        text += '  (لا يوجد)\n';
+                    } else {
+                        empIds.forEach((empId, index) => {
+                            const emp = getEmployeeById(empId);
+                            text += `  ${index + 1}. ${emp ? emp.name : '(موظف محذوف)'}\n`;
+                        });
+                    }
+                    text += '\n----------------------------------------\n\n';
+                }
+
+                // Create a blob and download
+                const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'جدول_مواعيد_العمل.txt';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                showToast('✅ تم تصدير الملف النصي بنجاح!', 'success');
             }
 
             // ─────────────────────────────────────
@@ -1305,6 +1387,7 @@
             clearScheduleBtn.addEventListener('click', clearAllSchedules);
             clearAllEmployeesBtn.addEventListener('click', clearAllEmployees);
             exportPdfBtn.addEventListener('click', exportToPdf);
+            exportTextBtn.addEventListener('click', exportToText);
             scheduleDateInput.addEventListener('change', saveData);
 
             // ─────────────────────────────────────
@@ -1328,6 +1411,7 @@
             console.log('   👥 27 موظفًا مُحمّلون مسبقًا');
             console.log('   📋 قم بتوزيعهم على الفترات الثلاث');
             console.log('   📄 تصدير PDF يعمل الآن بشكل صحيح');
+            console.log('   📝 تصدير النص متاح أيضًا');
         })();
     </script>
 </body>
