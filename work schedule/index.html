@@ -61,7 +61,6 @@
             padding: 16px;
         }
 
-        /* ── Container ────────────────────── */
         .app-container {
             max-width: 1300px;
             margin: 0 auto;
@@ -70,7 +69,6 @@
             gap: 20px;
         }
 
-        /* ── Header ──────────────────────── */
         .app-header {
             background: var(--card-bg);
             border-radius: var(--radius);
@@ -149,7 +147,6 @@
             font-weight: 700;
         }
 
-        /* ── Main Grid ──────────────────── */
         .main-grid {
             display: grid;
             grid-template-columns: 320px 1fr;
@@ -157,7 +154,6 @@
             align-items: start;
         }
 
-        /* ── Employee Panel ─────────────── */
         .employee-panel {
             background: var(--card-bg);
             border-radius: var(--radius);
@@ -358,7 +354,6 @@
             margin-bottom: 8px;
         }
 
-        /* ── Schedule Area ──────────────── */
         .schedule-area {
             display: flex;
             flex-direction: column;
@@ -468,24 +463,12 @@
             animation: slideIn 0.25s ease;
         }
         @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-6px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .shift-card.shift-1 .shift-employees li {
-            border-right: 3px solid var(--shift1);
-        }
-        .shift-card.shift-2 .shift-employees li {
-            border-right: 3px solid var(--shift2);
-        }
-        .shift-card.shift-3 .shift-employees li {
-            border-right: 3px solid var(--shift3);
-        }
+        .shift-card.shift-1 .shift-employees li { border-right: 3px solid var(--shift1); }
+        .shift-card.shift-2 .shift-employees li { border-right: 3px solid var(--shift2); }
+        .shift-card.shift-3 .shift-employees li { border-right: 3px solid var(--shift3); }
         .shift-employees li .remove-shift-btn {
             background: transparent;
             border: none;
@@ -520,7 +503,6 @@
             padding: 3px 10px;
         }
 
-        /* ── Export Bar ─────────────────── */
         .export-bar {
             display: flex;
             gap: 12px;
@@ -559,7 +541,6 @@
             color: #ef4444;
         }
 
-        /* ── Toast ──────────────────────── */
         .toast-container {
             position: fixed;
             bottom: 24px;
@@ -580,136 +561,34 @@
             animation: toastIn 0.35s ease, toastOut 0.35s ease 2.2s forwards;
             pointer-events: auto;
             text-align: center;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
             white-space: nowrap;
         }
-        .toast.success {
-            background: #10b981;
-        }
-        .toast.error {
-            background: #ef4444;
-        }
-        .toast.info {
-            background: #3b82f6;
-        }
+        .toast.success { background: #10b981; }
+        .toast.error { background: #ef4444; }
+        .toast.info { background: #3b82f6; }
         @keyframes toastIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         @keyframes toastOut {
-            from {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            to {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-20px); }
         }
 
-        /* ── PDF Export Content ─────────── */
-        #pdf-export-content {
-            /* Hidden offscreen - used only for PDF generation */
-            position: absolute;
-            left: -9999px;
-            top: 0;
-            width: 800px;
-            background: #fff;
-            padding: 30px;
-            font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif;
-            direction: rtl;
-            color: #1e293b;
-        }
-        #pdf-export-content .pdf-title {
-            text-align: center;
-            font-size: 1.6rem;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: #1e293b;
-        }
-        #pdf-export-content .pdf-date {
-            text-align: center;
-            font-size: 1rem;
-            color: #64748b;
-            margin-bottom: 20px;
-        }
-        #pdf-export-content .pdf-grid {
-            display: flex;
-            gap: 12px;
-        }
-        #pdf-export-content .pdf-shift {
-            flex: 1;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        #pdf-export-content .pdf-shift-header {
-            padding: 10px;
-            text-align: center;
-            font-weight: 700;
-            color: #fff;
-            font-size: 0.9rem;
-        }
-        #pdf-export-content .pdf-shift-body {
-            padding: 10px;
-            min-height: 80px;
-            background: #fafbfc;
-        }
-        #pdf-export-content .pdf-shift-body ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        #pdf-export-content .pdf-shift-body li {
-            padding: 5px 8px;
-            border-bottom: 1px solid #e2e8f0;
-            font-size: 0.82rem;
-        }
-
-        /* ── Responsive ─────────────────── */
         @media (max-width: 1024px) {
-            .main-grid {
-                grid-template-columns: 1fr;
-            }
-            .employee-panel {
-                position: static;
-                max-height: none;
-            }
-            .employee-list-wrap {
-                max-height: 250px;
-            }
-            .schedule-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
+            .main-grid { grid-template-columns: 1fr; }
+            .employee-panel { position: static; max-height: none; }
+            .employee-list-wrap { max-height: 250px; }
+            .schedule-grid { grid-template-columns: repeat(3, 1fr); }
         }
         @media (max-width: 750px) {
-            .schedule-grid {
-                grid-template-columns: 1fr;
-            }
-            .shift-card {
-                min-height: auto;
-            }
-            .app-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .app-header h1 {
-                font-size: 1.2rem;
-            }
-            .export-bar {
-                justify-content: stretch;
-            }
-            .btn-export,
-            .btn-reset {
-                flex: 1;
-                justify-content: center;
-            }
+            .schedule-grid { grid-template-columns: 1fr; }
+            .shift-card { min-height: auto; }
+            .app-header { flex-direction: column; align-items: flex-start; }
+            .app-header h1 { font-size: 1.2rem; }
+            .export-bar { justify-content: stretch; }
+            .btn-export, .btn-reset { flex: 1; justify-content: center; }
         }
     </style>
 </head>
@@ -737,7 +616,7 @@
             <aside class="employee-panel" id="employeePanel">
                 <h3><span class="icon">👥</span> قائمة الموظفين</h3>
                 <div class="add-employee-form">
-                    <input type="text" id="empNameInput" placeholder="أدخل اسم الموظف..." maxlength="60">
+                    <input type="text" id="empNameInput" placeholder="أدخل اسم موظف جديد..." maxlength="60">
                     <button class="btn btn-primary" id="addEmpBtn" title="إضافة موظف">➕ أضف</button>
                 </div>
                 <div class="employee-list-wrap" id="employeeListWrap">
@@ -823,26 +702,6 @@
         </div>
     </div>
 
-    <!-- ═══════════ HIDDEN PDF EXPORT TEMPLATE ═══════════ -->
-    <div id="pdf-export-content">
-        <div class="pdf-title">📋 جدول مواعيد العمل</div>
-        <div class="pdf-date" id="pdfDate"></div>
-        <div class="pdf-grid">
-            <div class="pdf-shift">
-                <div class="pdf-shift-header" style="background:#f59e0b;">🌅 من الفجر إلى الظهر</div>
-                <div class="pdf-shift-body"><ul id="pdfShift1List"></ul></div>
-            </div>
-            <div class="pdf-shift">
-                <div class="pdf-shift-header" style="background:#f97316;">☀️ من الظهر إلى العشاء</div>
-                <div class="pdf-shift-body"><ul id="pdfShift2List"></ul></div>
-            </div>
-            <div class="pdf-shift">
-                <div class="pdf-shift-header" style="background:#6366f1;">🌙 من العشاء إلى الفجر</div>
-                <div class="pdf-shift-body"><ul id="pdfShift3List"></ul></div>
-            </div>
-        </div>
-    </div>
-
     <!-- ═══════════ TOAST CONTAINER ═══════════ -->
     <div class="toast-container" id="toastContainer"></div>
 
@@ -887,10 +746,42 @@
             };
 
             // ─────────────────────────────────────
+            // DEFAULT EMPLOYEES (corrected list)
+            // ─────────────────────────────────────
+            const DEFAULT_EMPLOYEES = [
+                "عبدالقادر بوزكرت",               // 1
+                "عبدالفتاح محمد عمر",             // 2
+                "أسان بوشناكوف",                  // 3
+                "جبريل محمد شبانة",               // 4
+                "عبدالله عبدالعزيز صلاح الدين",   // 5
+                "نورين عثمان محمد",               // 6
+                "أنيس الرحمن راعين",              // 7
+                "جاسم فادنغاو مطالب",             // 8
+                "مهدي عكروت",                     // 9
+                "سلطان سعيد أفرانو",              // 10
+                "عبد العزيز فردوس بن مبارك",      // 11
+                "يونس خطابي",                     // 12
+                "عفان ماهاما",                    // 13
+                "محمد مصطفى ادن",                 // 14
+                "أعميروش صايب",                   // 15
+                "محمد رازق محمد فواز",            // 16
+                "لطفي الحاكم بن محمد عزاني",      // 17
+                "محمد جان زائروف",                // 18
+                "حبيب الله محمد موسى كليم",       // 19 (kept as original)
+                "المهدي مراني علوي",              // 20 (corrected)
+                "هنريكاي مانوال بربوسا",          // 21
+                "شاه جهان أحمد شاه",              // 22
+                "نرمين صالحوفيتش",               // 23
+                "أحمد جمال عثمان",                // 24
+                "دريتون بريشه",                  // 25
+                "كنتا ييما",                      // 26
+                "أمارة كونيه"                     // 27
+            ];
+
+            // ─────────────────────────────────────
             // DATA STATE
             // ─────────────────────────────────────
             let employees = []; // { id: string, name: string }
-            // shifts: { 1: [empId, ...], 2: [empId, ...], 3: [empId, ...] }
             let shifts = { 1: [], 2: [], 3: [] };
 
             // ─────────────────────────────────────
@@ -907,7 +798,7 @@
                 try {
                     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
                 } catch (e) {
-                    // Storage full or unavailable
+                    // Storage full or unavailable – continue
                 }
             }
 
@@ -921,7 +812,6 @@
                         }
                         if (data.shifts && typeof data.shifts === 'object') {
                             shifts = { 1: [], 2: [], 3: [], ...data.shifts };
-                            // Clean up any employee IDs in shifts that don't exist
                             const validIds = new Set(employees.map(e => e.id));
                             for (const s of [1, 2, 3]) {
                                 shifts[s] = shifts[s].filter(id => validIds.has(id));
@@ -932,9 +822,18 @@
                         }
                     }
                 } catch (e) {
-                    // Corrupted data - reset
                     employees = [];
                     shifts = { 1: [], 2: [], 3: [] };
+                }
+
+                // If no employees exist (first run or after reset), seed with defaults
+                if (employees.length === 0) {
+                    employees = DEFAULT_EMPLOYEES.map(name => ({
+                        id: 'emp_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
+                        name
+                    }));
+                    shifts = { 1: [], 2: [], 3: [] };
+                    saveData();
                 }
             }
 
@@ -942,7 +841,7 @@
             // HELPERS
             // ─────────────────────────────────────
             function generateId() {
-                return 'emp_' + Date.now() + '_' + Math.random().toString(36).substring(2, 8);
+                return 'emp_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8);
             }
 
             function getEmployeeById(id) {
@@ -959,12 +858,11 @@
 
             function isEmployeeScheduled(empId) {
                 return shifts[1].includes(empId) ||
-                    shifts[2].includes(empId) ||
-                    shifts[3].includes(empId);
+                       shifts[2].includes(empId) ||
+                       shifts[3].includes(empId);
             }
 
             function getUnscheduledEmployeesForShift(shiftNum) {
-                // Employees NOT already in this specific shift
                 const inThisShift = new Set(shifts[shiftNum]);
                 return employees.filter(e => !inThisShift.has(e.id));
             }
@@ -977,7 +875,6 @@
                 toast.className = `toast ${type}`;
                 toast.textContent = message;
                 toastContainer.appendChild(toast);
-                // Auto-remove after animation
                 setTimeout(() => {
                     if (toast.parentNode) toast.remove();
                 }, 2600);
@@ -1003,8 +900,7 @@
 
                         const infoDiv = document.createElement('div');
                         infoDiv.className = 'emp-info';
-                        infoDiv.title = isSched ? 'تمت جدولة هذا الموظف ✓' :
-                            'انقر لتحديد/إلغاء التحديد';
+                        infoDiv.title = isSched ? 'تمت جدولة هذا الموظف ✓' : 'انقر لتحديد/إلغاء التحديد';
 
                         const checkbox = document.createElement('span');
                         checkbox.className = 'custom-checkbox';
@@ -1022,7 +918,6 @@
                         infoDiv.appendChild(checkbox);
                         infoDiv.appendChild(nameSpan);
 
-                        // Clicking the name area also toggles
                         infoDiv.addEventListener('click', () => {
                             toggleEmployeeCheck(emp.id);
                         });
@@ -1048,13 +943,11 @@
             function toggleEmployeeCheck(empId) {
                 const isSched = isEmployeeScheduled(empId);
                 if (isSched) {
-                    // Remove from all shifts
                     for (const s of [1, 2, 3]) {
                         shifts[s] = shifts[s].filter(id => id !== empId);
                     }
                     showToast('تم إلغاء جدولة الموظف من جميع الفترات', 'info');
                 } else {
-                    // Add to first shift by default (shift 1)
                     if (!shifts[1].includes(empId)) {
                         shifts[1].push(empId);
                         showToast('تمت إضافة الموظف إلى فترة "من الفجر إلى الظهر"', 'success');
@@ -1070,7 +963,6 @@
                 if (!confirm(`هل أنت متأكد من حذف "${emp.name}" من قائمة الموظفين؟\nسيتم إزالته من جميع الجداول أيضًا.`)) return;
 
                 employees = employees.filter(e => e.id !== empId);
-                // Remove from all shifts
                 for (const s of [1, 2, 3]) {
                     shifts[s] = shifts[s].filter(id => id !== empId);
                 }
@@ -1152,7 +1044,6 @@
                     opt.textContent = emp.name;
                     select.appendChild(opt);
                 });
-                // Restore selection if still valid
                 if (currentValue && available.some(e => e.id === currentValue)) {
                     select.value = currentValue;
                 } else {
@@ -1201,7 +1092,6 @@
                     empNameInput.focus();
                     return;
                 }
-                // Check for duplicates
                 if (employees.some(e => e.name.toLowerCase() === name.toLowerCase())) {
                     showToast('يوجد موظف بهذا الاسم بالفعل', 'error');
                     return;
@@ -1234,9 +1124,7 @@
                     showToast('لا يوجد موظفين للحذف', 'info');
                     return;
                 }
-                if (!confirm(
-                        `هل أنت متأكد من حذف جميع الموظفين (${employees.length} موظف)؟\nسيتم مسح الجدول بالكامل أيضًا.`
-                        )) return;
+                if (!confirm(`هل أنت متأكد من حذف جميع الموظفين (${employees.length} موظف)؟\nسيتم مسح الجدول بالكامل أيضًا.`)) return;
                 employees = [];
                 shifts = { 1: [], 2: [], 3: [] };
                 refreshAll();
@@ -1245,49 +1133,104 @@
             }
 
             // ─────────────────────────────────────
-            // PDF EXPORT
+            // PDF EXPORT – USES A TEMPORARY VISIBLE CONTAINER
             // ─────────────────────────────────────
             function exportToPdf() {
-                // Populate the hidden PDF template
-                const pdfDateEl = document.getElementById('pdfDate');
+                const container = document.createElement('div');
+                container.style.position = 'fixed';
+                container.style.top = '-9999px';
+                container.style.left = '0';
+                container.style.width = '900px';
+                container.style.padding = '20px';
+                container.style.background = '#ffffff';
+                container.style.fontFamily = "'Segoe UI', 'Tahoma', 'Arial', sans-serif";
+                container.style.direction = 'rtl';
+                container.style.color = '#1e293b';
+                container.id = 'temp-pdf-container';
+
+                const title = document.createElement('div');
+                title.style.textAlign = 'center';
+                title.style.fontSize = '1.6rem';
+                title.style.fontWeight = '700';
+                title.style.marginBottom = '6px';
+                title.textContent = '📋 جدول مواعيد العمل';
+                container.appendChild(title);
+
+                const dateDiv = document.createElement('div');
+                dateDiv.style.textAlign = 'center';
+                dateDiv.style.fontSize = '1rem';
+                dateDiv.style.color = '#64748b';
+                dateDiv.style.marginBottom = '20px';
                 const dateVal = scheduleDateInput.value;
                 if (dateVal) {
                     const d = new Date(dateVal + 'T00:00:00');
                     const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
-                    pdfDateEl.textContent = '📅 ' + d.toLocaleDateString('ar-SA', options);
+                    dateDiv.textContent = '📅 ' + d.toLocaleDateString('ar-SA', options);
                 } else {
-                    pdfDateEl.textContent = '📅 ' + new Date().toLocaleDateString('ar-SA', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                        weekday: 'long'
+                    dateDiv.textContent = '📅 ' + new Date().toLocaleDateString('ar-SA', {
+                        year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'
                     });
                 }
+                container.appendChild(dateDiv);
 
-                // Fill shift lists in PDF template
-                for (const s of [1, 2, 3]) {
-                    const pdfListEl = document.getElementById('pdfShift' + s + 'List');
-                    pdfListEl.innerHTML = '';
-                    const empIds = shifts[s];
+                const grid = document.createElement('div');
+                grid.style.display = 'flex';
+                grid.style.gap = '12px';
+                const shiftNames = [
+                    { num: 1, title: '🌅 من الفجر إلى الظهر', color: '#f59e0b' },
+                    { num: 2, title: '☀️ من الظهر إلى العشاء', color: '#f97316' },
+                    { num: 3, title: '🌙 من العشاء إلى الفجر', color: '#6366f1' }
+                ];
+                shiftNames.forEach(s => {
+                    const card = document.createElement('div');
+                    card.style.flex = '1';
+                    card.style.border = '2px solid #e2e8f0';
+                    card.style.borderRadius = '10px';
+                    card.style.overflow = 'hidden';
+
+                    const header = document.createElement('div');
+                    header.style.padding = '10px';
+                    header.style.textAlign = 'center';
+                    header.style.fontWeight = '700';
+                    header.style.color = '#fff';
+                    header.style.background = s.color;
+                    header.textContent = s.title;
+                    card.appendChild(header);
+
+                    const body = document.createElement('div');
+                    body.style.padding = '10px';
+                    body.style.minHeight = '80px';
+                    body.style.background = '#fafbfc';
+                    const ul = document.createElement('ul');
+                    ul.style.listStyle = 'none';
+                    ul.style.padding = '0';
+                    ul.style.margin = '0';
+                    const empIds = shifts[s.num];
                     if (empIds.length === 0) {
                         const li = document.createElement('li');
                         li.textContent = '— لا يوجد —';
                         li.style.color = '#94a3b8';
                         li.style.fontStyle = 'italic';
-                        pdfListEl.appendChild(li);
+                        li.style.padding = '5px 8px';
+                        ul.appendChild(li);
                     } else {
                         empIds.forEach(empId => {
                             const emp = getEmployeeById(empId);
                             const li = document.createElement('li');
-                            li.textContent = emp ? '👤 ' + emp.name : '(موظف محذوف)';
-                            pdfListEl.appendChild(li);
+                            li.textContent = '👤 ' + (emp ? emp.name : '(موظف محذوف)');
+                            li.style.padding = '5px 8px';
+                            li.style.borderBottom = '1px solid #e2e8f0';
+                            li.style.fontSize = '0.82rem';
+                            ul.appendChild(li);
                         });
                     }
-                }
+                    body.appendChild(ul);
+                    card.appendChild(body);
+                    grid.appendChild(card);
+                });
+                container.appendChild(grid);
+                document.body.appendChild(container);
 
-                const pdfContent = document.getElementById('pdf-export-content');
-
-                // Use html2pdf
                 const opt = {
                     margin: [10, 8, 10, 8],
                     filename: 'جدول_مواعيد_العمل.pdf',
@@ -1305,10 +1248,12 @@
                     },
                 };
 
-                html2pdf().set(opt).from(pdfContent).save().then(() => {
+                html2pdf().set(opt).from(container).save().then(() => {
                     showToast('✅ تم تصدير PDF بنجاح!', 'success');
+                    if (container.parentNode) container.remove();
                 }).catch(() => {
                     showToast('❌ فشل التصدير. حاول مرة أخرى.', 'error');
+                    if (container.parentNode) container.remove();
                 });
             }
 
@@ -1323,7 +1268,6 @@
                 }
             });
 
-            // Shift add buttons
             document.querySelectorAll('.shift-add-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const shiftNum = parseInt(btn.dataset.shift);
@@ -1338,7 +1282,6 @@
                 });
             });
 
-            // Also allow adding via Enter on shift selects
             for (const s of [1, 2, 3]) {
                 shiftSelects[s].addEventListener('keydown', (e) => {
                     if (e.key === 'Enter') {
@@ -1350,7 +1293,6 @@
                         }
                     }
                 });
-                // Double-click on select option to add
                 shiftSelects[s].addEventListener('dblclick', () => {
                     const empId = shiftSelects[s].value;
                     if (empId) {
@@ -1363,15 +1305,12 @@
             clearScheduleBtn.addEventListener('click', clearAllSchedules);
             clearAllEmployeesBtn.addEventListener('click', clearAllEmployees);
             exportPdfBtn.addEventListener('click', exportToPdf);
-
-            // Auto-save on date change
             scheduleDateInput.addEventListener('change', saveData);
 
             // ─────────────────────────────────────
             // INIT
             // ─────────────────────────────────────
             function init() {
-                // Set default date to today if not set
                 if (!scheduleDateInput.value) {
                     const today = new Date();
                     const yyyy = today.getFullYear();
@@ -1385,11 +1324,10 @@
 
             init();
 
-            console.log('✅ جدول مواعيد العمل - التطبيق جاهز');
-            console.log('   👥 أضف موظفين من اللوحة اليسرى');
-            console.log('   📋 وزعهم على الفترات الثلاث');
-            console.log('   ✅ الموظفون المجدولون يظهرون بعلامة ✓');
-            console.log('   📄 اضغط "تصدير إلى PDF" للتصدير');
+            console.log('✅ جدول مواعيد العمل – التطبيق جاهز');
+            console.log('   👥 27 موظفًا مُحمّلون مسبقًا');
+            console.log('   📋 قم بتوزيعهم على الفترات الثلاث');
+            console.log('   📄 تصدير PDF يعمل الآن بشكل صحيح');
         })();
     </script>
 </body>
