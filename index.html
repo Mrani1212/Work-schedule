@@ -746,36 +746,36 @@
             };
 
             // ─────────────────────────────────────
-            // DEFAULT EMPLOYEES (pre‑loaded list)
+            // DEFAULT EMPLOYEES (corrected list)
             // ─────────────────────────────────────
             const DEFAULT_EMPLOYEES = [
-                "عبدالقادر بوزكرت",
-                "عبدالفتاح محمد عمر",
-                "أسان بوشناكوف",
-                "جبريل محمد شبانة",
-                "عبدالله عبدالعزيز صلاح الدين",
-                "نورين عثمان محمد",
-                "أنيس الرحمن راعين",
-                "جاسم فادنغاو مطالب",
-                "مهدي عكروت",
-                "سلطان سعيد أفرانو",
-                "عبد العزيز فردوس بن مبارك",
-                "يونس خطابي",
-                "عفان ماهاما",
-                "محمد مصطفى ادن",
-                "أعميروش صايب",
-                "محمد رازق محمد فواز",
-                "لطفي الحاكم بن محمد عزاني",
-                "محمد جان زائروف",
-                "حبيب الله محمد موسى كليم",
-                "حبيب الله محمد موسى كليم",   // duplicate intentionally kept
-                "هنريكاي مانوال بربوسا",
-                "شاه جهان أحمد شاه",
-                "نرمين صالحوفيتش",
-                "أحمد جمال عثمان",
-                "دريتون بريشه",
-                "كنتا ييما",
-                "أمارة كونيه"
+                "عبدالقادر بوزكرت",               // 1
+                "عبدالفتاح محمد عمر",             // 2
+                "أسان بوشناكوف",                  // 3
+                "جبريل محمد شبانة",               // 4
+                "عبدالله عبدالعزيز صلاح الدين",   // 5
+                "نورين عثمان محمد",               // 6
+                "أنيس الرحمن راعين",              // 7
+                "جاسم فادنغاو مطالب",             // 8
+                "مهدي عكروت",                     // 9
+                "سلطان سعيد أفرانو",              // 10
+                "عبد العزيز فردوس بن مبارك",      // 11
+                "يونس خطابي",                     // 12
+                "عفان ماهاما",                    // 13
+                "محمد مصطفى ادن",                 // 14
+                "أعميروش صايب",                   // 15
+                "محمد رازق محمد فواز",            // 16
+                "لطفي الحاكم بن محمد عزاني",      // 17
+                "محمد جان زائروف",                // 18
+                "حبيب الله محمد موسى كليم",       // 19 (kept as original)
+                "المهدي مراني علوي",              // 20 (corrected)
+                "هنريكاي مانوال بربوسا",          // 21
+                "شاه جهان أحمد شاه",              // 22
+                "نرمين صالحوفيتش",               // 23
+                "أحمد جمال عثمان",                // 24
+                "دريتون بريشه",                  // 25
+                "كنتا ييما",                      // 26
+                "أمارة كونيه"                     // 27
             ];
 
             // ─────────────────────────────────────
@@ -812,7 +812,6 @@
                         }
                         if (data.shifts && typeof data.shifts === 'object') {
                             shifts = { 1: [], 2: [], 3: [], ...data.shifts };
-                            // Clean up any employee IDs that don't exist
                             const validIds = new Set(employees.map(e => e.id));
                             for (const s of [1, 2, 3]) {
                                 shifts[s] = shifts[s].filter(id => validIds.has(id));
@@ -823,19 +822,18 @@
                         }
                     }
                 } catch (e) {
-                    // Corrupted data – reset
                     employees = [];
                     shifts = { 1: [], 2: [], 3: [] };
                 }
 
-                // If after loading there are no employees, seed with defaults
+                // If no employees exist (first run or after reset), seed with defaults
                 if (employees.length === 0) {
                     employees = DEFAULT_EMPLOYEES.map(name => ({
                         id: 'emp_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
                         name
                     }));
                     shifts = { 1: [], 2: [], 3: [] };
-                    saveData(); // persist immediately
+                    saveData();
                 }
             }
 
@@ -1135,10 +1133,9 @@
             }
 
             // ─────────────────────────────────────
-            // PDF EXPORT – NOW USES A TEMPORARY VISIBLE CONTAINER
+            // PDF EXPORT – USES A TEMPORARY VISIBLE CONTAINER
             // ─────────────────────────────────────
             function exportToPdf() {
-                // Build a temporary container that looks exactly like the schedule
                 const container = document.createElement('div');
                 container.style.position = 'fixed';
                 container.style.top = '-9999px';
@@ -1151,7 +1148,6 @@
                 container.style.color = '#1e293b';
                 container.id = 'temp-pdf-container';
 
-                // Title
                 const title = document.createElement('div');
                 title.style.textAlign = 'center';
                 title.style.fontSize = '1.6rem';
@@ -1160,7 +1156,6 @@
                 title.textContent = '📋 جدول مواعيد العمل';
                 container.appendChild(title);
 
-                // Date
                 const dateDiv = document.createElement('div');
                 dateDiv.style.textAlign = 'center';
                 dateDiv.style.fontSize = '1rem';
@@ -1178,7 +1173,6 @@
                 }
                 container.appendChild(dateDiv);
 
-                // Grid with three shifts
                 const grid = document.createElement('div');
                 grid.style.display = 'flex';
                 grid.style.gap = '12px';
@@ -1235,7 +1229,6 @@
                     grid.appendChild(card);
                 });
                 container.appendChild(grid);
-
                 document.body.appendChild(container);
 
                 const opt = {
@@ -1257,7 +1250,6 @@
 
                 html2pdf().set(opt).from(container).save().then(() => {
                     showToast('✅ تم تصدير PDF بنجاح!', 'success');
-                    // Clean up the temporary container
                     if (container.parentNode) container.remove();
                 }).catch(() => {
                     showToast('❌ فشل التصدير. حاول مرة أخرى.', 'error');
